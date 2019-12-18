@@ -1,0 +1,25 @@
+<div class="row containerSignin">
+  <div class="col-4  mx-auto  mt-5 ">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="text-center">SignIn</h2>
+      </div>
+      <div class="card-body">
+        <form (submit)="signin()">
+          <div class="form-group">
+            <input type="text" name="email"  [(ngModel)]="user.email" class="form-control" placeholder="Email" required autofocus>
+          </div>
+          <div class="form-group">
+            <input type="password" name="password"  [(ngModel)]="user.password" class="form-control" placeholder="Password" required>
+          </div>
+          <button type="submit" class="btn btn-primary mr-2 w-75">
+            Signin
+          </button>
+          <button class="btn btn-secondary " routerLink="/signup">
+            Singup
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

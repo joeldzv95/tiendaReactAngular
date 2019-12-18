@@ -1,0 +1,6 @@
+.containerSignin{
+    background-image: url('../../../assets/fonts/imagenesBase/login-fondo.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}

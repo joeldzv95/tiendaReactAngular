@@ -1,0 +1,117 @@
+<div class="containerSignin">
+
+
+  <div class="container">
+
+    <!--Navbar-->
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand">Tienda: La bodega</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse navNoti" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link cart" (click)="open(cart)">
+              <fa-icon icon="shopping-cart" size="2x"></fa-icon>
+              <fa-icon icon="circle" class="noti" *ngIf="show"></fa-icon>
+              <p>{{numberNoti}}</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="authService.logout()" href="#">
+              <fa-icon icon="sign-out-alt" size="2x"></fa-icon>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="mainContainer">
+
+      <div class="row info">
+        <div class="col-8">
+          <h2>Catálogo de productos</h2>
+        </div>
+        <div class="col-4">
+          <span>¿Qué estás buscando?</span>
+          <br>
+          <input [(ngModel)]='filterPost'  type="search" name="filterPost" class="form-control" placeholder="Buscar">
+        </div>
+      </div>
+
+      <div class="products">
+        <div class="row">
+          <div class="col-4 card" id="{{product._id}}" *ngFor="let product of products | filter : filterPost">
+            <img src="assets/fonts/imagenesBase/{{product.name}}.jpg">
+            <div class="card-body">
+              <h5 class="card-title">{{product.name}}</h5>
+              <p class="card-text">Precio : {{product.price}}$</p>
+              <p class="card-text">Unidades disponibles : {{product.uDis}}</p>
+              <button (click)="open(content)" (click)="parameters(product.name , product.price , product.uDis, product.name)" class="vermas btn btn-primary">Ver más</button>
+              <button class="añadir btn btn-warning " (click)="cartDiv(product.name, product.price, name.value , name.id )">Añadir</button>
+              <input type="number"  value="0" class="number" #name id="input{{product.name}}"  >
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title"> {{titulo}} </h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body modalImg">
+      <div class="row">
+        <div class="col-6">
+          <img src="assets/fonts/imagenesBase/{{product}}.jpg">
+        </div>
+        <div class="col-6">
+          <p>Precio : {{precio}}$</p>
+          <p>Unidades disponibles {{uDispo}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Cerrar</button>
+    </div>
+  </ng-template>
+
+  <ng-template #cart let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title"> Carrito de compras </h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body modalImg">
+      <li class="list-group-item" *ngFor="let productCart of productsCart">
+        <div class="row">
+          <div class="col-lg-4 cartContainer">
+            <img src="assets/fonts/imagenesBase/{{productCart.titulo}}.jpg">
+          </div>
+          <div class="col-lg-8">
+            <h2>{{productCart.titulo}}</h2>
+            <p>Unidades : {{productCart.cantidad}}</p>
+            <p>Total  : {{productCart.total}}</p>
+          </div>
+        </div>
+      </li>
+      <h2>Total : {{total}}</h2>
+      <button type="button" (click)="pay()" class="btn btn-primary ">Pagar</button>
+      <button type="button" class="btn btn-warning m-2">Cancelar</button>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Cerrar</button>
+    </div>
+  </ng-template>
